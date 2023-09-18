@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  
+        <div id="container" style="border: 5px solid black; 
+        background-color: aquamarine;
+        width: 1000px; 
+        height: 600px; 
+        position: relative;
+         ;">
+        </div>
+    <script>
+        var palet=["red","green","blue","yellow","pink","black","brown","merun"]//create a variable which stores ball color
+            var balls=[]//empty arr for ball
+            var x_pos=[]//empty arr for xpos
+            var y_pos=[]//empty arr for ypos
+            var x_vel=[]//empty arr for xvel
+            var y_vel=[]//empty arr for yvel
+            var gravity=1 //creating the direction
+        function factory(n){
+            for(let i=0;i<n;i++){
+                let color=palet[Math.floor(Math.random()*8)]
+                var ball=document.createElement("div")
+                ball.style.backgroundColor=color
+                ball.style.width="50px"
+                ball.style.height="50px"
+                ball.style.borderRadius="50%"
+                ball.style.position="absolute"
+                ball.style.zIndex="5"
+                ypos=Math.floor(Math.random()*600)
+                xpos=Math.floor(Math.random()*1000)
+                ball.style.left=xpos+'px'
+                ball.style.top=ypos+'px'
+                xvel=Math.random()*20-10
+                yvel=Math.random()*20-10
+                document.getElementById("container").appendChild(ball)
+                balls.push(ball)
+                x_pos.push(xpos)
+                y_pos.push(ypos)
+                x_vel.push(xvel)
+                y_vel.push(yvel)
+            }
+            update()
+        }
+        function update(){
+            for(let i=0;i<balls.length;i++){
+                x_pos[i]+=x_vel[i];
+                y_pos[i]+=y_vel[i];
+                if(x_pos[i] > 900 || x_pos[i] <= 10) {
+                    x_vel[i] =-x_vel[i]*gravity;
+                }
+                if(y_pos[i] > 560 || y_pos[i] <= 0) {
+                    y_vel[i] =-y_vel[i]*gravity;
+                }
+                balls[i].style.left=x_pos[i]+'px';
+                balls[i].style.top=y_pos[i]+'px';
+            }
+            setTimeout(factory,50)
+        }
+        factory(6)  
+    </script>
+    
+    
+    
+</body>
+</html>
